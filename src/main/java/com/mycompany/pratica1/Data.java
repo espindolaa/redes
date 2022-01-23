@@ -13,4 +13,17 @@ import java.util.HashSet;
 public class Data {
     HashSet<Login> logins;
     HashSet<String> favorites;
+
+    public Data() {
+        this.logins = new HashSet<Login>();
+        this.favorites = new HashSet<String>();
+    }
+
+    @Override
+    public String toString() {
+        return "Data{" + "logins=" + logins + ", favorites=" + favorites + '}';
+    }
+    
+    
+    
 }

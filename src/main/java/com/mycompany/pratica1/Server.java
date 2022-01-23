@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Lucas
  */
 public class Server {
-    private ArrayList<Account> accounts;
+    private ArrayList<Account> accounts = new ArrayList<Account>();
     
     public void RegisterAccount(String username, String authCode) {
         // SCRYPT sobre o auth code (?)

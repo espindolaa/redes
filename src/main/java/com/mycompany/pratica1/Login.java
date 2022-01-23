@@ -18,4 +18,11 @@ public class Login {
         this.username = username;
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "Login{" + "url=" + url + ", username=" + username + ", password=" + password + '}';
+    }
+    
+    
 }

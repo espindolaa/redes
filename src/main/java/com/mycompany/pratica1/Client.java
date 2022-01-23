@@ -22,6 +22,7 @@ public class Client {
         
         this.name = name;
         this.authToken = token;
+        this.data = new Data();
     }
     
     public void saveLogin(String url, String username, String password) {
