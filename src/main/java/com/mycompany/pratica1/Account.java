@@ -10,15 +10,15 @@ package com.mycompany.pratica1;
  */
 public class Account {
     public String username;
-    public String authCode;
+    public byte[] authCode;
     public String encryptedData;
 
-    public Account(String username, String authCode) {
+    public Account(String username, byte[] authCode) {
         this.username = username;
         this.authCode = authCode;
     }
 
-    Account(String username, String authCode, String data) {
+    Account(String username, byte[] authCode, String data) {
         this.username = username;
         this.authCode = authCode;
         this.encryptedData = data;

@@ -4,8 +4,16 @@
  */
 package com.mycompany.pratica1;
 
+import com.mycompany.pratica1.security.HashexBCFIPS;
+import com.mycompany.pratica1.security.PBKDF2UtilBCFIPS;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,12 +21,21 @@ import java.util.HashSet;
  */
 public class Client {
     public String name;
-    public String authToken;
+    public byte[] authToken;
     public Data data;
 
     public Client(String name, String password) {
-        var derivedPassword = "pbkdf" + password;// função de derivação de senha usando o alice.password
-        var token = "hkdf" + derivedPassword;// função de hash sobre a derivedPassword
+        var derivedPassword = "";
+        byte[] token = null;
+        
+        try {
+            derivedPassword = PBKDF2UtilBCFIPS.getDerivedKey(password);
+            token = HashexBCFIPS.calculateHash(derivedPassword);
+        } catch (NoSuchAlgorithmException ex) {
+            System.out.println(ex);
+        } catch (IOException | GeneralSecurityException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         this.name = name;
         this.authToken = token;

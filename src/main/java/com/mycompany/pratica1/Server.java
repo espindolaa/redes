@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Server {
     private ArrayList<Account> accounts = new ArrayList<Account>();
     
-    public void RegisterAccount(String username, String authCode) {
+    public void RegisterAccount(String username, byte[] authCode) {
         // SCRYPT sobre o auth code (?)
         accounts.add(new Account(username, authCode));
     }
@@ -32,14 +32,14 @@ public class Server {
         return null;
     }
     
-    public boolean AuthenticateUser(String username, String authCode) {
+    public boolean AuthenticateUser(String username, byte[] authCode) {
         // SCRYPT sobre o auth code (?)
         
         var account = GetByUsername(username);
         return account != null ? account.authCode == authCode : false;
     }
     
-    public Data GetData(String username, String authCode) {
+    public Data GetData(String username, byte[] authCode) {
         if (AuthenticateUser(username, authCode)) {
             return readFromFile(GetByUsername(username).encryptedData);
         }
@@ -47,7 +47,7 @@ public class Server {
         return null;
     }
     
-    public void SaveData(String username, String authCode, Data data) {
+    public void SaveData(String username, byte[] authCode, Data data) {
         if (AuthenticateUser(username, authCode)) {
             this.accounts.remove(GetByUsername(username));
             
