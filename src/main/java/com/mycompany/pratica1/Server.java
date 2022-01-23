@@ -4,6 +4,11 @@
  */
 package com.mycompany.pratica1;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -34,23 +39,56 @@ public class Server {
         return account != null ? account.authCode == authCode : false;
     }
     
-    public String GetData(String username, String authCode) {
+    public Data GetData(String username, String authCode) {
         if (AuthenticateUser(username, authCode)) {
-            return GetByUsername(username).encryptedData;
+            return readFromFile(GetByUsername(username).encryptedData);
         }
         
-        return "Validação falhou";
+        return null;
     }
     
     public void SaveData(String username, String authCode, Data data) {
         if (AuthenticateUser(username, authCode)) {
             this.accounts.remove(GetByUsername(username));
             
-            String serializedData = "data"; // serializar e criptografar data
-            var updatedAccount = new Account(username, authCode, serializedData);
+            var location = saveToFile(username, data);
+            var updatedAccount = new Account(username, authCode, location);
             
             this.accounts.add(updatedAccount);
         }
     }
     
+    private String saveToFile(String username, Data data) {
+      String location = "";
+      try
+      {
+         location = username+".ser";
+         FileOutputStream fileOut = new FileOutputStream(location);
+         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+         out.writeObject(data);
+         out.close();
+         fileOut.close();
+         System.out.println("Serialized data is saved in " + location);
+      }catch(IOException i)
+      {
+         System.out.println(i);
+      }
+      return location;
+    }
+    
+    private Data readFromFile(String location) {
+      Data d = null;
+      try
+      {
+         FileInputStream fileIn = new FileInputStream(location);
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         d = (Data) in.readObject();
+         in.close();
+         fileIn.close();
+      }catch(IOException | ClassNotFoundException i)
+      {
+      }
+      
+      return d;
+    }
 }

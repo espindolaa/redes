@@ -4,11 +4,14 @@
  */
 package com.mycompany.pratica1;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Lucas
  */
-public class Login {
+public class Login implements Serializable {
+    private static final long serialVersionUID = 1L;
     public String url;
     private String username;
     private String password;

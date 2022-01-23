@@ -4,13 +4,15 @@
  */
 package com.mycompany.pratica1;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
 /**
  *
  * @author Lucas
  */
-public class Data {
+public class Data implements Serializable {
+    private static final long serialVersionUID = 1L;
     HashSet<Login> logins;
     HashSet<String> favorites;
 

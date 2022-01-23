@@ -24,8 +24,7 @@ public class Sync {
     
     private static Data getData(Server server, Client client) {
         var encrypted = server.GetData(client.name, client.authToken);
-        var data = new Data();// decrypt data
-        return data;
+        return encrypted;
     }
     
     private static void io(Server server, ArrayList<Client> clients) throws IOException {
@@ -33,6 +32,8 @@ public class Sync {
         Client chosen = null;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Client alice = new Client("Alice", "mozilla");
+        alice.saveLogin("facebook.com", "alice@email.com", "senhasecretas");
+        alice.saveFavorite("facebook.com");
         clients.add(alice);
         menu: while (true) {
             System.out.println("");
