@@ -17,6 +17,11 @@
             <version>1.11</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>1</groupId>
+            <artifactId>scrypt</artifactId>
+            <version>1</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
